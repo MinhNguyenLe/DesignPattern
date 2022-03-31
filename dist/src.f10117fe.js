@@ -189,7 +189,368 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/index.ts":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/DesignPattern/BridgePattern/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var _Geometry =
+/** @class */
+function () {
+  function _Geometry() {}
+
+  _Geometry.prototype.getGeometry = function () {
+    return this.shape.getShape() + " && " + this.color.getColor();
+  };
+
+  return _Geometry;
+}();
+
+var Geometry =
+/** @class */
+function (_super) {
+  __extends(Geometry, _super);
+
+  function Geometry(shape, color) {
+    var _this = _super.call(this) || this;
+
+    _this.shape = shape;
+    _this.color = color;
+    return _this;
+  }
+
+  return Geometry;
+}(_Geometry);
+
+var _Shape =
+/** @class */
+function () {
+  function _Shape() {}
+
+  _Shape.prototype.getShape = function () {
+    return this.name;
+  };
+
+  return _Shape;
+}();
+
+var _Color =
+/** @class */
+function () {
+  function _Color() {}
+
+  _Color.prototype.getColor = function () {
+    return this.color;
+  };
+
+  return _Color;
+}();
+
+var Shape =
+/** @class */
+function (_super) {
+  __extends(Shape, _super);
+
+  function Shape(name) {
+    var _this = _super.call(this) || this;
+
+    _this.name = name;
+    return _this;
+  }
+
+  Shape.prototype.getShape = function () {
+    return this.name;
+  };
+
+  return Shape;
+}(_Shape);
+
+var Color =
+/** @class */
+function (_super) {
+  __extends(Color, _super);
+
+  function Color(color) {
+    var _this = _super.call(this) || this;
+
+    _this.color = color;
+    return _this;
+  }
+
+  Color.prototype.getColor = function () {
+    return this.color;
+  };
+
+  return Color;
+}(_Color);
+
+var circle = new Shape("circle");
+var red = new Color("red");
+var geometry1 = new Geometry(new Shape("circle"), new Color("red"));
+console.log(geometry1.getGeometry());
+},{}],"src/DesignPattern/DecoratorPattern/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var Pizza =
+/** @class */
+function () {
+  function Pizza() {}
+
+  Pizza.prototype.getTypePizza = function () {
+    return this.name + " && " + this.description;
+  };
+
+  return Pizza;
+}();
+
+var Model =
+/** @class */
+function (_super) {
+  __extends(Model, _super);
+
+  function Model(name, description) {
+    var _this = _super.call(this) || this;
+
+    _this.name = name;
+    _this.description = description;
+    return _this;
+  }
+
+  Model.prototype.cost = function () {
+    return 100000;
+  };
+
+  return Model;
+}(Pizza);
+
+var PizzaDecorator =
+/** @class */
+function (_super) {
+  __extends(PizzaDecorator, _super);
+
+  function PizzaDecorator() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  return PizzaDecorator;
+}(Pizza);
+
+var PizzaOption1 =
+/** @class */
+function (_super) {
+  __extends(PizzaOption1, _super);
+
+  function PizzaOption1(pizza) {
+    var _this = _super.call(this) || this;
+
+    _this.decorated = pizza;
+    return _this;
+  }
+
+  PizzaOption1.prototype.getTypePizza = function () {
+    return this.decorated.getTypePizza() + " && type = 1";
+  };
+
+  PizzaOption1.prototype.cost = function () {
+    return this.decorated.cost() + 5000;
+  };
+
+  return PizzaOption1;
+}(PizzaDecorator);
+
+var PizzaOption2 =
+/** @class */
+function (_super) {
+  __extends(PizzaOption2, _super);
+
+  function PizzaOption2(pizza) {
+    var _this = _super.call(this) || this;
+
+    _this.decorated = pizza;
+    return _this;
+  }
+
+  PizzaOption2.prototype.getTypePizza = function () {
+    return this.decorated.getTypePizza() + " && type = 2";
+  };
+
+  PizzaOption2.prototype.cost = function () {
+    return this.decorated.cost() + 10000;
+  };
+
+  return PizzaOption2;
+}(PizzaDecorator);
+
+var PizzaOption3 =
+/** @class */
+function (_super) {
+  __extends(PizzaOption3, _super);
+
+  function PizzaOption3(pizza) {
+    var _this = _super.call(this) || this;
+
+    _this.decorated = pizza;
+    return _this;
+  }
+
+  PizzaOption3.prototype.getTypePizza = function () {
+    return this.decorated.getTypePizza() + " && type = 3";
+  };
+
+  PizzaOption3.prototype.cost = function () {
+    return this.decorated.cost() + 20000;
+  };
+
+  return PizzaOption3;
+}(PizzaDecorator);
+
+var pizza = new Model("name = 1", "decsription = 1");
+pizza = new PizzaOption1(pizza);
+pizza = new PizzaOption3(pizza);
+console.log(pizza.getTypePizza(), pizza.cost());
+},{}],"src/DesignPattern/FacadePattern/index.ts":[function(require,module,exports) {
+"use strict";
+
+var CPU =
+/** @class */
+function () {
+  function CPU(name) {
+    this.name = name;
+  }
+
+  CPU.prototype.run = function () {
+    return this.name + 'is running';
+  };
+
+  return CPU;
+}();
+
+var HardDrive =
+/** @class */
+function () {
+  function HardDrive(name) {
+    this.name = name;
+  }
+
+  HardDrive.prototype.run = function () {
+    return this.name + 'is running';
+  };
+
+  return HardDrive;
+}();
+
+var Memory =
+/** @class */
+function () {
+  function Memory(name) {
+    this.name = name;
+  }
+
+  Memory.prototype.run = function () {
+    return this.name + 'is running';
+  };
+
+  return Memory;
+}();
+
+var ComputerFacade =
+/** @class */
+function () {
+  function ComputerFacade() {
+    this.processor = new CPU('my cpu');
+    this.ram = new Memory('my memory');
+    this.hd = new HardDrive('my hard drive');
+  }
+
+  ComputerFacade.prototype.start = function () {
+    return this.processor.run() + "&" + this.ram.run() + "&" + this.hd.run();
+  };
+
+  return ComputerFacade;
+}();
+
+var Client =
+/** @class */
+function () {
+  function Client() {}
+
+  Client.prototype.openComputer = function () {
+    var computer = new ComputerFacade();
+    return computer.start();
+  };
+
+  return Client;
+}();
+
+var client = new Client();
+console.log(client.openComputer());
+},{}],"src/DesignPattern/index.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+require("./BridgePattern");
+
+require("./DecoratorPattern");
+
+require("./FacadePattern");
+},{"./BridgePattern":"src/DesignPattern/BridgePattern/index.ts","./DecoratorPattern":"src/DesignPattern/DecoratorPattern/index.ts","./FacadePattern":"src/DesignPattern/FacadePattern/index.ts"}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -198,8 +559,10 @@ Object.defineProperty(exports, "__esModule", {
 
 require("./styles.css");
 
+require("./DesignPattern");
+
 document.getElementById("app").innerHTML = "\n<h1>Hello Vanilla!</h1>\n<div>\n  We use the same configuration as Parcel to bundle this sandbox, you can find more\n  info about Parcel \n  <a href=\"https://parceljs.org\" target=\"_blank\" rel=\"noopener noreferrer\">here</a>.\n</div>";
-},{"./styles.css":"src/styles.css"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./styles.css":"src/styles.css","./DesignPattern":"src/DesignPattern/index.ts"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -227,7 +590,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55427" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36187" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
